@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GridComboBox"
         xmlns:converters="clr-namespace:GridComboBox.Views.Converters"
+        xmlns:helpers="clr-namespace:GridComboBox.Views.Helpers"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
@@ -12,9 +13,14 @@
         <!--Converters-->
         <converters:RoleToStringConverter x:Key="Views.Converters.RoleToStringConverter"/>
         
-        <!--Selected Template-->
-        <DataTemplate x:Key="SelectedUserTemplate">
+        <!--Selected Template Name-->
+        <DataTemplate x:Key="SelectedUserNameTemplate">
             <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+        </DataTemplate>
+        
+        <!--Selected Template Email-->
+        <DataTemplate x:Key="SelectedUserEmailTemplate">
+            <TextBlock Text="{Binding Email}" VerticalAlignment="Center"/>
         </DataTemplate>
 
         <!--Drop Down User Template-->
@@ -33,13 +39,28 @@
                VerticalAlignment="Center"/>
             </Grid>
         </DataTemplate>
+        
+        <!--Helpers-->
+        <helpers:ComboBoxUserTemplateSelector x:Key="Helpers.ComboBoxUserNameTemplateSelector"
+                                                SelectedTemplate="{StaticResource SelectedUserNameTemplate}"
+                                                DropDownTemplate="{StaticResource DropDownUserTemplate}"/>
+
+        <helpers:ComboBoxUserTemplateSelector x:Key="Helpers.ComboBoxUserEmailTemplateSelector"
+                                              SelectedTemplate="{StaticResource SelectedUserEmailTemplate}"
+                                                DropDownTemplate="{StaticResource DropDownUserTemplate}"/>
     </Window.Resources>
     
-    <Grid>
+    <StackPanel VerticalAlignment="Center">
         <ComboBox ItemsSource="{Binding Users}" 
                   Width="300" Height="30"
-                  ItemTemplate="{StaticResource DropDownUserTemplate}"/>
+                  ItemTemplateSelector="{StaticResource Helpers.ComboBoxUserNameTemplateSelector}"
+                  SelectedItem="{Binding SelectedUser}"/>
+        
+        <ComboBox ItemsSource="{Binding Users}" 
+                  Width="300" Height="30"
+                  ItemTemplateSelector="{StaticResource Helpers.ComboBoxUserEmailTemplateSelector}"
+                  SelectedItem="{Binding SelectedUser}"/>
 
 
-    </Grid>
+    </StackPanel>
 </Window>
