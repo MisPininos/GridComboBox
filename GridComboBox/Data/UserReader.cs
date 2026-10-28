@@ -13,15 +13,17 @@ namespace GridComboBox.Data
             {
                 "Alice", "Bob", "Charlie", "Diana", "Ethan", "Fiona", "George", "Hannah", "Ivan", "Julia",
                 "Kevin", "Laura", "Michael", "Nina", "Oscar", "Paula", "Quentin", "Rachel", "Samuel", "Tina",
-                "Ulysses", "Vera", "William", "Xenia", "Yasmine", "Zach"
+                "Ulysses", "Vera", "William", "Xenia", "Yasmine", "Zach", "Francisco", "Pablo", "Sofia", "Diego", 
+                "Camila", "Mateo", "Valentina", "Sebastian", "Isabella", "Liam", "Emma"
             };
 
             string[] lastNames =
             {
-                "Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "Garcia", "Wilson", "Taylor"
+                "Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "Garcia", "Wilson", "Taylor", 
+                "Martinez", "Anderson", "Thomas", "Jackson", "White", "Harris", "Martin", "Thompson", "Robinson", "Clark", "Meraz"
             };
 
-            string[] domains = { "example.com", "mail.com", "company.org", "test.net" };
+            string[] domains = { "example.com", "mail.com", "company.org", "test.net",  "gruporoothn.com"};
             Role[] roles = { Role.Admin, Role.User, Role.Guest };
 
             var users = new List<User>(count);
