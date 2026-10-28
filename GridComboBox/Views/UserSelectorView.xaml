@@ -52,11 +52,15 @@
     
     <StackPanel VerticalAlignment="Center">
         <ComboBox ItemsSource="{Binding Users}" 
-                  Width="300" Height="30"
-                  ItemTemplateSelector="{StaticResource Helpers.ComboBoxUserNameTemplateSelector}"
                   SelectedItem="{Binding SelectedUser}"
+                  ItemTemplateSelector="{StaticResource Helpers.ComboBoxUserNameTemplateSelector}"
                   VirtualizingPanel.IsVirtualizing="True"
-                  VirtualizingPanel.VirtualizationMode="Recycling">
+                  VirtualizingPanel.VirtualizationMode="Recycling"
+                  IsEditable="True"
+                  IsTextSearchEnabled="False"
+                  Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                  TextSearch.TextPath="Name"
+                  Width="300" Height="30">
             <ComboBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel/>
