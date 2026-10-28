@@ -19,7 +19,9 @@ namespace GridComboBox
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new ViewModels.UserSelectorViewModel();
+            var viewModel = new ViewModels.UserSelectorViewModel();
+            viewModel.RequestClose += (sender, args) => this.Close();
+            this.DataContext = viewModel;
         }
     }
 }
