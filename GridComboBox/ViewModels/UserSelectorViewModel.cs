@@ -19,7 +19,7 @@ namespace GridComboBox.ViewModels
 
         public UserSelectorViewModel()
         {
-            Users = Data.UserReader.GetUsers(20);
+            Users = Data.UserReader.GetUsers(20000);
 
             CloseCommand = new RelayCommand(() => Execute(Close), CanExecuteWhenNotBusy);
         }
