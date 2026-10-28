@@ -1,16 +1,20 @@
 ﻿using PropertyChanged;
+using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Input;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace GridComboBox.ViewModels.Base
 {
     [AddINotifyPropertyChangedInterface]
     public class BaseViewModel : INotifyPropertyChanged
     {
+        public event EventHandler? RequestClose;
+        public ICommand CloseRequestCommand { get; set; }
+
         public event PropertyChangedEventHandler? PropertyChanged = (sender, args) => { };
         private readonly SemaphoreSlim _uiLock = new SemaphoreSlim(1, 1);
 
@@ -32,6 +36,8 @@ namespace GridComboBox.ViewModels.Base
                     }
                 }
             };
+
+            CloseRequestCommand = new RelayCommand(() => Execute(Close), CanExecuteWhenNotBusy);
         }
 
         public bool IsBusy { get; private set; }
@@ -140,6 +146,11 @@ namespace GridComboBox.ViewModels.Base
             };
 
             dialog.Show();
+        }
+
+        private void Close()
+        {
+            RequestClose?.Invoke(this, EventArgs.Empty);
         }
 
     }

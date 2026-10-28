@@ -9,24 +9,12 @@ namespace GridComboBox.ViewModels
 {
     public class UserSelectorViewModel : BaseViewModel
     {
-        public User SelectedUser { get; set; }        
-        public List<Models.User> Users { get; set; }
-
-
-
-        public event EventHandler RequestClose;
-        public ICommand CloseCommand { get; set; }
+        public User? SelectedUser { get; set; }        
+        public List<User> Users { get; set; }       
 
         public UserSelectorViewModel()
         {
             Users = Data.UserReader.GetUsers(20000);
-
-            CloseCommand = new RelayCommand(() => Execute(Close), CanExecuteWhenNotBusy);
-        }
-
-        private void Close()
-        {
-            RequestClose?.Invoke(this, EventArgs.Empty);
-        }
+        }        
     }
 }
