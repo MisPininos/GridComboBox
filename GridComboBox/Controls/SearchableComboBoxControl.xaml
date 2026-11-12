@@ -4,9 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GridComboBox.Controls"
+             xmlns:helpers="clr-namespace:GridComboBox.Views.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <DataTemplate x:Key="DefaultSelectedTemplate">
+            <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+        </DataTemplate>
+        
+        <helpers:ComboBoxUserTemplateSelector x:Key="ComboBoxTemplateSelector"
+                                              SelectedTemplate="{StaticResource DefaultSelectedTemplate}"/>
+    </UserControl.Resources>
     <ComboBox ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType=UserControl}}"
+              ItemTemplateSelector="{StaticResource ComboBoxTemplateSelector}"
               VirtualizingPanel.IsVirtualizing="True"
               VirtualizingPanel.VirtualizationMode="Recycling">
 

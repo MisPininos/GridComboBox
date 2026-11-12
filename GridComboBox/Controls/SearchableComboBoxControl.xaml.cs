@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GridComboBox.Views.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -23,13 +24,49 @@ namespace GridComboBox.Controls
             InitializeComponent();
         }
 
+        /// <summary>
+        /// ItemsSource Property
+        /// </summary>
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable<object>), typeof(SearchableComboBoxControl), new PropertyMetadata(null));
+            DependencyProperty.Register(
+                nameof(ItemsSource), 
+                typeof(IEnumerable<object>), 
+                typeof(SearchableComboBoxControl), 
+                new PropertyMetadata(null)
+            );
 
         public IEnumerable<object> ItemsSource
         {
             get { return (IEnumerable<object>)GetValue(ItemsSourceProperty); }
             set { SetValue(ItemsSourceProperty, value); }
+        }
+
+
+        /// <summary>
+        /// DropDownTemplate Property
+        /// </summary>
+        public static readonly DependencyProperty DropDownTemplateProperty =
+            DependencyProperty.Register(
+                nameof(DropDownTemplate), 
+                typeof(DataTemplate), 
+                typeof(SearchableComboBoxControl), 
+                new PropertyMetadata(null, OnDropDownTemplateChanged)
+            );
+
+        public DataTemplate DropDownTemplate
+        {
+            get { return (DataTemplate)GetValue(DropDownTemplateProperty); }
+            set { SetValue(DropDownTemplateProperty, value); }
+        }
+
+        private static void OnDropDownTemplateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is SearchableComboBoxControl control &&
+                control.Resources["ComboBoxTemplateSelector"] is ComboBoxUserTemplateSelector selector)
+            {
+                // Safely assign the template directly to the selector instance
+                selector.DropDownTemplate = e.NewValue as DataTemplate;
+            }
         }
     }
 }
